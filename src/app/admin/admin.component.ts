@@ -13,36 +13,57 @@ export class AdminComponent {
     characteristics: [
       {
         srNo: 1,
-        timestamp: '2024-11-19 10:30:00',
-        refNo: 'REF001',
-        characteristic: 'Dia 31.50 ±0.25',
-        gauge: 'Ring GO',
-        ofdcGaugeNo: 'DMG-2609',
-        actualNo: '1001',
-        remark: 'SATISFACTORY' ,
-        otherRemark: ''
+        timestamp: new Date().toISOString(),
+        refNo: 'REF1',
+        characteristic: 'Default Characteristic',
+        gauge: 'Default Gauge',
+        ofdcGaugeNo: 'Default OFDC',
+        actualNo: 0,
+        remark: 'Default Remark',
+        otherRemark: 'Default Other Remark',
+        isStopped: true, // Initially the counter is running
+        interval: null, // No interval running initially
+        isDefault: true // Default row
       }
-    ]
+    ] as any[]
   };
 
-  // Method to add a new row to characteristics
+  // Add a new row
   addRow() {
-    this.reportData.characteristics.push({
+    const newRow = {
       srNo: this.reportData.characteristics.length + 1,
-      timestamp: '',
-      refNo: '',
+      timestamp: new Date().toISOString(),
+      refNo: `REF${this.reportData.characteristics.length + 1}`,
       characteristic: '',
       gauge: '',
       ofdcGaugeNo: '',
-      actualNo: '',
+      actualNo: 0, // Counter starts from 0
       remark: '',
-      otherRemark: ''
-    });
+      otherRemark: '',
+      isStopped: true, // Track if counter is stopped
+      interval: null // Store the interval ID
+    };
+    this.reportData.characteristics.push(newRow);
   }
 
-  // Method to remove a selected row
-  removeRow() {
-    // Remove the last row, you can customize this logic for specific removals
-    this.reportData.characteristics.pop();
+  toggleCounter(index: number) {
+    const row = this.reportData.characteristics[index];
+    if (row.isStopped) {
+      // Start the counter
+      row.interval = setInterval(() => {
+        row.actualNo++;
+      }, 100);
+    } else {
+      // Stop the counter
+      if (row.interval) {
+        clearInterval(row.interval);
+        row.interval = null;
+      }
+    }
+    row.isStopped = !row.isStopped; // Toggle the state
+  }
+  // Delete a row
+  deleteRow(index: number) {
+    this.reportData.characteristics.splice(index, 1); // Remove row from array
   }
 }
