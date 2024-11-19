@@ -1,1 +1,49 @@
-<p>admin works!</p>
+<div class="container-fluid p-5">
+  <div class="card border-none  w-100">
+    <div class="card-header border-bottom border-danger text-center p-2">
+      <h2 class="text-warning textfw-bold">
+        <b>EDIT DIMENSION REPORT OF :</b> {{ reportData.title }}
+      </h2>
+      <p class="mb-1 fw-3"><b>End Store :</b> {{ reportData.endStore }}</p>
+      <p ><b>Component :</b> {{ reportData.component }}</p>
+    </div>
+
+    <div class="d-flex justify-content-end p-2">
+      <button class="btn btn-success rounded-circle me-2" (click)="addRow()">+</button>
+      <button class="btn btn-danger rounded-circle me-2" (click)="removeRow()">--</button>
+    </div>
+
+    <div class="table-responsive p-2">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Timestamp</th>
+            <th>Reference No.</th>
+            <th>Characteristic</th>
+            <th>Gauge</th>
+            <th>OFDC Gauge No</th>
+            <th>Actual No.</th>
+            <th>Other Remark</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of reportData.characteristics; let i = index">
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.srNo" [readonly]="true" value="{{ i + 1 }}"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.timestamp"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.refNo"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.characteristic" [readonly]="true"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.gauge" [readonly]="true"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.actualNo"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.otherRemark"></td>
+            <td class="text-center d-flex justify-content-center align-items-center mt-1">
+              <input type="checkbox" class="mt-2">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
