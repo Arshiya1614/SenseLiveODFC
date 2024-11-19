@@ -1,1 +1,109 @@
-<p>login works!</p>
+<div class="auth-container">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+      <div class="img-container">
+        <img src="assets/hrms3.webp" alt="hrms-logo" class="img" />
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="row">
+            <div class="col-12 mb-3 mt-3">
+              <div class="h3">Sign In</div>
+            </div>
+          </div>
+          <div class="row">
+            <form>
+              <div class="col-12">
+                <label for="email">Username or Email</label>
+              </div>
+              <div class="col-12 position-relative">
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  [formControl]="email"
+                  required
+                />
+                <mat-icon *ngIf="email.valid" class="valid-icon"
+                  >check</mat-icon
+                >
+                <div>
+                  <mat-error *ngIf="email.invalid && email.touched">
+                    {{ getErrorMessage() }}
+                  </mat-error>
+                </div>
+              </div>
+              <div class="col-12">
+                <label for="password">Password</label>
+              </div>
+              <div class="col-12 position-relative">
+                <input
+                  matInput
+                  [type]="hide ? 'password' : 'text'"
+                  [formControl]="password"
+                  id="password"
+                  placeholder="Enter your password"
+                />
+                <mat-icon
+                  *ngIf="password.value"
+                  class="eye-icon"
+                  (click)="hide = !hide"
+                >
+                  {{ hide ? "visibility_off" : "visibility" }}
+                </mat-icon>
+              </div>
+              <div>
+                <mat-error *ngIf="password.invalid && password.touched">{{
+                  getPasswordErrorMessage()
+                }}</mat-error>
+              </div>
+              <div class="row mt-4">
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+                  <button
+                    type="submit"
+                    class="sign-in"
+                    (click)="submit()"
+                    [disabled]="loading"
+                  >
+                    {{ loadingMessage }}
+                  </button>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+                  <button
+                    type="button"
+                    class="sign-up"
+                    routerLink="/authentication/register"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+                <div class="col-12 mt-3 text-center">
+                  <a routerLink="/authentication/forgot" class="text-center"
+                    >Forgot Password ?</a
+                  >
+                </div>
+              </div>
+              <div
+                class="row"
+                *ngIf="
+                  errorMessage ===
+                  'User is not verified. Please verify your account.'
+                "
+              >
+                <div class="col">
+                  <div class="text-center">
+                    <a class="link" routerLink="/authentication/send-verify">
+                      <h6>Verify User</h6>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
