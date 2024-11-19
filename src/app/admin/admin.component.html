@@ -24,8 +24,8 @@
             <th>Gauge</th>
             <th>OFDC Gauge No</th>
             <th>Actual No.</th>
+            <th>Remark</th>
             <th>Other Remark</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -37,10 +37,8 @@
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.gauge" [readonly]="true"></td>
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.actualNo"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.remark"></td>
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.otherRemark"></td>
-            <td class="text-center d-flex justify-content-center align-items-center mt-1">
-              <input type="checkbox" class="mt-2">
-            </td>
           </tr>
         </tbody>
       </table>

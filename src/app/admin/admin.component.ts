@@ -19,7 +19,8 @@ export class AdminComponent {
         gauge: 'Ring GO',
         ofdcGaugeNo: 'DMG-2609',
         actualNo: '1001',
-        otherRemark: 'SATISFACTORY'
+        remark: 'SATISFACTORY' ,
+        otherRemark: ''
       }
     ]
   };
@@ -34,6 +35,7 @@ export class AdminComponent {
       gauge: '',
       ofdcGaugeNo: '',
       actualNo: '',
+      remark: '',
       otherRemark: ''
     });
   }
