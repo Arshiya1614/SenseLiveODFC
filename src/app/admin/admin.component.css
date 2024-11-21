@@ -2,3 +2,32 @@ p{
     font-size:18px;
     line-height:30px;
 }
+/* Hide scrollbar for webkit browsers */
+.table-responsive::-webkit-scrollbar {
+    display: none;
+  }
+  .table-responsive {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+  }
+  
+  /* Optional: Prevent horizontal overflow in the container */
+  .container-fluid {
+    overflow-x: hidden;
+  }
+  /* Style for the dropdown to match the background */
+.form-select {
+    border: none;
+    background-color: transparent;
+    color: inherit; /* Match the text color with the surrounding content */
+    font-size: inherit; /* Ensure the font size matches the surrounding text */
+    box-shadow: none; /* Remove any box shadow */
+    outline: none; 
+    padding: 1;
+    cursor: pointer;
+  }
+  
+  .form-select:focus {
+    outline: none; /* Prevent any focus outline from showing */
+    box-shadow: none; /* Ensure no focus shadow appears */
+  }

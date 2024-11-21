@@ -1,41 +1,47 @@
-<div class="container-fluid p-5">
-  <div class="card border-none w-100">
+"<div class="container-fluid p-5" style="overflow: hidden;">
+  <div class="card border-none w-100" style="max-height: 100%; overflow: hidden;">
     <div class="card-header border-bottom border-danger text-center p-2">
       <h2 class="text-warning textfw-bold">
         <b>EDIT DIMENSION REPORT OF :</b> {{ reportData.title }}
       </h2>
       <p class="mb-1 fw-3"><b>End Store :</b> {{ reportData.endStore }}</p>
-      <p><b>Component :</b> {{ reportData.component }}</p>
+      <p>
+        <b>Component:</b>
+        <select class="form-select d-inline w-auto" [(ngModel)]="selectedComponent" (change)="onComponentChange()">
+          <option *ngFor="let component of components" [value]="component">
+            {{ component }}
+          </option>
+        </select>
+      </p>
     </div>
 
     <div class="d-flex justify-content-end p-2">
       <button class="btn btn-success rounded-circle me-2" (click)="addRow()">+</button>
     </div>
-
-    <div class="table-responsive p-2">
+    <div class="table-responsive p-2" style="max-height:500px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
       <table class="table table-borderless">
         <thead>
           <tr>
             <th>Sr. No.</th>
+            <th>OFDC Gauge No</th>
+            <th>Gauge</th>
+            <th>Characteristic</th>
             <th>Timestamp</th>
             <th>Reference No.</th>
-            <th>Characteristic</th>
-            <th>Gauge</th>
-            <th>OFDC Gauge No</th>
             <th>Actual No.</th>
             <th>Remark</th>
             <th>Other Remark</th>
-            <th>Action</th> <!-- Column for action buttons -->
+            <th  class="d-print-none"></th> 
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let row of reportData.characteristics; let i = index">
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.srNo" [readonly]="true"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.gauge" [readonly]="true"></td>
+            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.characteristic" [readonly]="true"></td>
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.timestamp"></td>
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.refNo"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.characteristic" [readonly]="true"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.gauge" [readonly]="true"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.actualNo"></td>
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.remark"></td>
             <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.otherRemark"></td>
@@ -43,20 +49,20 @@
               <div class="d-flex justify-content-center">
                 <!-- Start/Stop Toggle Button -->
                 <button 
-                class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center" 
-                [ngClass]="row.isStopped ? 'btn-primary' : 'btn-warning'" 
-                (click)="toggleCounter(i)" 
-                style="width: 40px; height: 40px; padding: 0;"
-              >
-                <mat-icon class="text-white">{{ row.isStopped ? 'play_arrow' : 'pause' }}</mat-icon>
-              </button>
+                  class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center" 
+                  [ngClass]="row.isStopped ? 'btn-primary' : 'btn-warning'" 
+                  (click)="toggleCounter(i)" 
+                  style="width: 30px; height: 30px; padding: 0;"
+                >
+                  <mat-icon class="text-white">{{ row.isStopped ? 'play_arrow' : 'pause' }}</mat-icon>
+                </button>
                 <!-- Delete Button -->
                 <button 
                   *ngIf="row.isStopped" 
                   class="btn btn-danger btn-sm rounded-circle ms-2 d-flex justify-content-center align-items-center" 
                   (click)="deleteRow(i)" 
                   [disabled]="i === 0 && row.isDefault" 
-                  style="width: 40px; height: 40px; padding: 0;"
+                  style="width: 30px; height: 30px; padding: 0;"
                 >
                   <mat-icon class="text-white">delete</mat-icon>
                 </button>

@@ -6,6 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
+   // Dropdown options for components
+   components: string[] = [
+    'BODY,(MARKING) FOR FUZE PERCN.DA NO 162 MK8(M-2)',
+    'BASE,PLATE, FOR FUZE PERCN.DA NO 162 MK8(M-2)',
+    'COVER,FOR FUZE PERCN.DA NO 162 MK8(M-2)'
+  ];
+
+  // Selected component (default to the first one)
+  selectedComponent: string = this.components[0];
+
   reportData = {
     title: 'BODY,(MARKING) FOR FUZE PERCN.DA NO 162 MK8(M-2) FOR FUZE PERCN.DA NO 162 MK8(M-2)',
     endStore: 'FUZE PERCUSSION,DA, NO.162 MK8(M-2) BRASS WITH CAP',
@@ -27,7 +37,35 @@ export class AdminComponent {
       }
     ] as any[]
   };
+   // Handle component change from dropdown
+   onComponentChange() {
+    this.updateReportData(this.selectedComponent);
+  }
 
+  // Update report data dynamically based on the selected component
+  updateReportData(component: string) {
+    this.reportData = {
+      title: component,
+      endStore: 'FUZE PERCUSSION,DA, NO.162 MK8(M-2) BRASS WITH CAP',
+      component: component,
+      characteristics: [
+        {
+          srNo: 1,
+          timestamp: new Date().toISOString(),
+          refNo: 'REF1',
+          characteristic: 'Default Characteristic',
+          gauge: 'Default Gauge',
+          ofdcGaugeNo: 'Default OFDC',
+          actualNo: 0,
+          remark: 'Default Remark',
+          otherRemark: 'Default Other Remark',
+          isStopped: true, // Initially the counter is running
+          interval: null, // No interval running initially
+          isDefault: true // Default row
+        }
+      ]
+    };
+  } 
   // Add a new row
   addRow() {
     const newRow = {
