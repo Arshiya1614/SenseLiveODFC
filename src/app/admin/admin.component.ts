@@ -39,8 +39,8 @@ export class AdminComponent {
         gauge: 'Guage',
         ofdcGaugeNo: 'OFDC no',
         actualNo: 0,
-        remark: 'Default Remark',
-        otherRemark: 'Default Other Remark',
+        remark: ' Remark',
+        otherRemark: ' Other Remark',
         isStopped: true, // Initially the counter is running
         interval: null, // No interval running initially
         isDefault: true // Default row
@@ -90,7 +90,7 @@ export class AdminComponent {
           ofdcGaugeNo: '',
           actualNo: 0,
           remark: 'Default Remark',
-          otherRemark: 'Default Other Remark',
+          otherRemark: 'Other Remark',
           isStopped: true, // Initially the counter is running
           interval: null, // No interval running initially
           isDefault: true // Default row

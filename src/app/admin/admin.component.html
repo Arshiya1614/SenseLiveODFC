@@ -1,5 +1,5 @@
-<div class="container-fluid p-5" style="overflow: hidden;">
-  <div class="card border-none w-100" style="max-height: 100%; overflow: hidden;">
+<div class="container-fluid p-5">
+  <div class="card border-none w-100 ">
     <div class="card-header border-bottom border-danger text-center p-2">
       <h2 class="text-warning textfw-bold">
         <b>EDIT DIMENSION REPORT OF :</b> {{ reportData.title }}
@@ -67,12 +67,13 @@
                 </select>
               </div>
             </td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.characteristic" [readonly]="true"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.actualNo"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.remark"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.otherRemark"></td>
-            <td>
+            <td class="col-2"><input type="text" class="form-control" [(ngModel)]="row.characteristic" [readonly]="true"></td>
+            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.actualNo"></td>
+            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.remark"></td>
+            <td class="col-2"><input type="text" class="form-control" [(ngModel)]="row.otherRemark"></td>
+            <td class="d-print-none ">
               <div class="d-flex justify-content-center">
+                <!-- Start/Stop Button -->
                 <button 
                   class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center" 
                   [ngClass]="row.isStopped ? 'btn-primary' : 'btn-warning'" 
@@ -80,11 +81,12 @@
                   style="width: 30px; height: 30px; padding: 0;">
                   <mat-icon class="text-white">{{ row.isStopped ? 'play_arrow' : 'pause' }}</mat-icon>
                 </button>
+                <!-- Delete Button -->
                 <button 
                   *ngIf="row.isStopped" 
                   class="btn btn-danger btn-sm rounded-circle ms-2 d-flex justify-content-center align-items-center" 
                   (click)="deleteRow(i)" 
-                  [disabled]="i === 0 && row.isDefault" 
+                  [disabled]="i === 0" 
                   style="width: 30px; height: 30px; padding: 0;">
                   <mat-icon class="text-white">delete</mat-icon>
                 </button>
