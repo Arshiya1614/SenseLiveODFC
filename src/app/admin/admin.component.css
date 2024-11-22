@@ -31,17 +31,6 @@ p{
     outline: none; /* Prevent any focus outline from showing */
     box-shadow: none; /* Ensure no focus shadow appears */
   }
-  .input-small {
-    width: 80px; /* Smaller size for "No." and similar inputs */
-  }
-  
-  .input-medium {
-    width: 200px; /* Slightly larger size for other inputs */
-  }
-  
-  .form-control {
-    height: 38px; /* Ensure consistent height across inputs */
-  }
   input{
     box-shadow: none !important; /* Remove shadow */
     border: 1px solid #ced4da;   /* Optional: Consistent border */

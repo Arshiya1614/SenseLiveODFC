@@ -36,10 +36,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let row of reportData.characteristics; let i = index">
-            <td><input type="text" class="form-control input-small" [(ngModel)]="row.srNo" [readonly]="true"></td>
-            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.timestamp"></td>
-            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.refNo"></td>
-            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
+            <td><input type="text" class="form-control " [(ngModel)]="row.srNo" [readonly]="true"></td>
+            <td><input type="text" class="form-control " [(ngModel)]="row.timestamp"></td>
+            <td><input type="text" class="form-control " [(ngModel)]="row.refNo"></td>
+            <td><input type="text" class="form-control " [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
             <td>
               <div>
                 <select 
@@ -52,10 +52,10 @@
                 </select>
               </div>
             </td>
-            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.characteristic" [readonly]="true"></td>
-            <td><input type="text" class="form-control input-small" [(ngModel)]="row.actualNo"></td>
-            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.remark"></td>
-            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.otherRemark"></td>
+            <td><input type="text" class="form-control " [(ngModel)]="row.characteristic" [readonly]="true"></td>
+            <td><input type="text" class="form-control " [(ngModel)]="row.actualNo"></td>
+            <td><input type="text" class="form-control " [(ngModel)]="row.remark"></td>
+            <td><input type="text" class="form-control " [(ngModel)]="row.otherRemark"></td>
             <td>
               <div class="d-flex justify-content-center">
                 <button 
