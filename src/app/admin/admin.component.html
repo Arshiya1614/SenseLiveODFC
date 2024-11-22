@@ -18,7 +18,7 @@
     <div class="d-flex justify-content-end p-2">
       <button class="btn btn-success rounded-circle me-2" (click)="addRow()">+</button>
     </div>
-    <div class="table-responsive p-2" style="max-height:500px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
+    <div class="table-responsive p-2" style="max-height:500px; overflow-y: auto; scrollbar-width: none; ms-overflow-style: none;">
       <table class="table table-borderless">
         <thead>
           <tr>
@@ -36,8 +36,23 @@
         </thead>
         <tbody>
           <tr *ngFor="let row of reportData.characteristics; let i = index">
-            <td><input type="text" class="form-control " [(ngModel)]="row.srNo" [readonly]="true"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.timestamp"></td>
+            <td style="width: 60px;">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="row.srNo"
+                [readonly]="true"
+                style="max-width: 50px;"
+              />
+            </td>
+            <td style="width: 200px;">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="row.timestamp"
+                style="min-width: 200px;"
+              />
+            </td>
             <td><input type="text" class="form-control " [(ngModel)]="row.refNo"></td>
             <td><input type="text" class="form-control " [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
             <td>
@@ -79,5 +94,6 @@
         </tbody>
       </table>
     </div>
+    
   </div>
 </div>

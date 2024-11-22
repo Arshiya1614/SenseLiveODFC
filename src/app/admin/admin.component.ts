@@ -33,7 +33,7 @@ export class AdminComponent {
     characteristics: [
       {
         srNo: 1,
-        timestamp: new Date().toISOString(),
+        timestamp: this.formatDate(new Date()),
         refNo: 'REF1',
         characteristic: 'Characteristic',
         gauge: 'Guage',
@@ -47,6 +47,18 @@ export class AdminComponent {
       }
     ] as any[]
   };
+
+
+  formatDate(date: Date): string {
+    const pad = (n: number) => (n < 10 ? '0' + n : n);
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1); // Months are 0-based
+    const year = date.getFullYear().toString().slice(-2); // Get last 2 digits
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+    return `${day}-${month}-${year}  ${hours}:${minutes}:${seconds}`;
+  }
    // Handle component change from dropdown
    onComponentChange() {
     this.updateReportData(this.selectedComponent);
@@ -90,7 +102,7 @@ export class AdminComponent {
   addRow() {
     const newRow = {
       srNo: this.reportData.characteristics.length + 1,
-      timestamp: new Date().toISOString(),
+      timestamp: this.formatDate(new Date()),
       refNo: `REF${this.reportData.characteristics.length + 1}`,
       characteristic: '',
       gauge: '',
