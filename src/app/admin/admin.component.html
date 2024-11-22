@@ -1,4 +1,4 @@
-"<div class="container-fluid p-5" style="overflow: hidden;">
+<div class="container-fluid p-5" style="overflow: hidden;">
   <div class="card border-none w-100" style="max-height: 100%; overflow: hidden;">
     <div class="card-header border-bottom border-danger text-center p-2">
       <h2 class="text-warning textfw-bold">
@@ -23,47 +23,54 @@
         <thead>
           <tr>
             <th>Sr. No.</th>
+            <th>Timestamp</th>
+            <th>Reference No.</th>
             <th>OFDC Gauge No</th>
             <th>Gauge</th>
             <th>Characteristic</th>
-            <th>Timestamp</th>
-            <th>Reference No.</th>
             <th>Actual No.</th>
             <th>Remark</th>
             <th>Other Remark</th>
-            <th  class="d-print-none"></th> 
+            <th class="d-print-none"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let row of reportData.characteristics; let i = index">
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.srNo" [readonly]="true"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.gauge" [readonly]="true"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.characteristic" [readonly]="true"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.timestamp"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.refNo"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.actualNo"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.remark"></td>
-            <td><input type="text" class="form-control shadow-none" [(ngModel)]="row.otherRemark"></td>
+            <td><input type="text" class="form-control input-small" [(ngModel)]="row.srNo" [readonly]="true"></td>
+            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.timestamp"></td>
+            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.refNo"></td>
+            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
+            <td>
+              <div>
+                <select 
+                  class="form-control input-medium" 
+                  [(ngModel)]="row.gauge" 
+                  (change)="onGaugeChange(row)">
+                  <option *ngFor="let gauge of gaugeOptions" [value]="gauge">
+                    {{ gauge }}
+                  </option>
+                </select>
+              </div>
+            </td>
+            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.characteristic" [readonly]="true"></td>
+            <td><input type="text" class="form-control input-small" [(ngModel)]="row.actualNo"></td>
+            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.remark"></td>
+            <td><input type="text" class="form-control input-medium" [(ngModel)]="row.otherRemark"></td>
             <td>
               <div class="d-flex justify-content-center">
-                <!-- Start/Stop Toggle Button -->
                 <button 
                   class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center" 
                   [ngClass]="row.isStopped ? 'btn-primary' : 'btn-warning'" 
                   (click)="toggleCounter(i)" 
-                  style="width: 30px; height: 30px; padding: 0;"
-                >
+                  style="width: 30px; height: 30px; padding: 0;">
                   <mat-icon class="text-white">{{ row.isStopped ? 'play_arrow' : 'pause' }}</mat-icon>
                 </button>
-                <!-- Delete Button -->
                 <button 
                   *ngIf="row.isStopped" 
                   class="btn btn-danger btn-sm rounded-circle ms-2 d-flex justify-content-center align-items-center" 
                   (click)="deleteRow(i)" 
                   [disabled]="i === 0 && row.isDefault" 
-                  style="width: 30px; height: 30px; padding: 0;"
-                >
+                  style="width: 30px; height: 30px; padding: 0;">
                   <mat-icon class="text-white">delete</mat-icon>
                 </button>
               </div>
