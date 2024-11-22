@@ -1,25 +1,40 @@
 <div class="container-fluid p-5">
-  <div class="card border-none w-100 ">
-    <div class="card-header border-bottom border-danger text-center p-2">
-      <h2 class="text-warning textfw-bold">
+  <div class="card border-none w-100">
+    <!-- Card Header -->
+    <div 
+      class="card-header border-bottom border-danger text-center p-2" 
+      style="position: sticky; top: 0; background-color: white; z-index: 10;">
+      <h2 class="text-warning ">
         <b>EDIT DIMENSION REPORT OF :</b> {{ reportData.title }}
       </h2>
-      <p class="mb-1 fw-3"><b>End Store :</b> {{ reportData.endStore }}</p>
-      <p>
-        <b>Component:</b>
-        <select class="form-select d-inline w-auto" [(ngModel)]="selectedComponent" (change)="onComponentChange()">
-          <option *ngFor="let component of components" [value]="component">
-            {{ component }}
-          </option>
-        </select>
-      </p>
+      <div class="sub-header">
+        <p class="mb-1 fw-3"><b>End Store : </b> {{ reportData.endStore }}</p>
+        <p>
+          <b>Component :</b>
+          <select 
+            class="form-select d-inline w-auto" 
+            [(ngModel)]="selectedComponent" 
+            (change)="onComponentChange()">
+            <option *ngFor="let component of components" [value]="component">
+              {{ component }}
+            </option>
+          </select>
+        </p>
+      </div>
     </div>
 
+    <!-- Add Button -->
     <div class="d-flex justify-content-end p-2">
-      <button class="btn btn-success rounded-circle me-2" (click)="addRow()">+</button>
+      <button class="add-btn me-2" (click)="addRow()">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
-    <div class="table-responsive p-2" style="max-height:500px; overflow-y: auto; scrollbar-width: none;">
-      <table class="table table-borderless">
+
+    <!-- Table Container -->
+    <div 
+      class="table-responsive p-2" 
+      style="max-height: 500px; overflow-y: auto; overflow-x: auto;">
+      <table class="table table-borderless text-nowrap">
         <thead>
           <tr>
             <th>Sr. No.</th>
@@ -36,50 +51,86 @@
         </thead>
         <tbody>
           <tr *ngFor="let row of reportData.characteristics; let i = index">
-            <td class ="col-1">
+            <td class="col-1" style="max-width: 50px; width: 50px;">
               <input
                 type="text"
                 class="form-control"
                 [(ngModel)]="row.srNo"
                 [readonly]="true"
+                style="min-width: 40px; max-width: 50px; text-align: center;"
               />
             </td>
-            <td class ="col-2">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="row.timestamp"
-              />
+            
+            <td class="col-2">
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="row.timestamp" 
+                [readonly]="true" />
             </td>
-            <td class ="col-1"><input type="text" class="form-control " [(ngModel)]="row.refNo"></td>
-            <td class ="col-1"><input type="text" class="form-control " [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
-            <td class ="col-1">
-              <div>
-                <select 
-                  class="form-control input-medium" 
-                  [(ngModel)]="row.gauge" 
-                  (change)="onGaugeChange(row)">
-                  <option *ngFor="let gauge of gaugeOptions" [value]="gauge">
-                    {{ gauge }}
-                  </option>
-                </select>
-              </div>
+            <td class="col-1">
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="row.refNo" />
             </td>
-            <td class="col-2"><input type="text" class="form-control" [(ngModel)]="row.characteristic" [readonly]="true"></td>
-            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.actualNo"></td>
-            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.remark"></td>
-            <td class="col-2"><input type="text" class="form-control" [(ngModel)]="row.otherRemark"></td>
-            <td class="d-print-none ">
+            <td class="col-1">
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="row.ofdcGaugeNo" 
+                [readonly]="true" />
+            </td>
+            <td class="col-2">
+              <select 
+                class="form-control input-medium" 
+                [(ngModel)]="row.gauge" 
+                (change)="onGaugeChange(row)">
+                <option *ngFor="let gauge of gaugeOptions" [value]="gauge">
+                  {{ gauge }}
+                </option>
+              </select>
+            </td>
+            <td class="col-2">
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="row.characteristic" 
+                [readonly]="true" />
+            </td>
+            <td class="col-1">
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="row.actualNo" 
+                [readonly]="true" />
+            </td>
+            <td class="col-2">
+              <select 
+                class="form-control input-medium" 
+                [(ngModel)]="row.remark">
+                <option *ngFor="let r of remarkOptions" [value]="r">
+                  {{ r }}
+                </option>
+              </select>
+            </td>
+            <td class="col-2">
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="row.otherRemark" />
+            </td>
+            <td class="d-print-none">
               <div class="d-flex justify-content-center">
-                <!-- Start/Stop Button -->
                 <button 
                   class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center" 
                   [ngClass]="row.isStopped ? 'btn-primary' : 'btn-warning'" 
                   (click)="toggleCounter(i)" 
                   style="width: 30px; height: 30px; padding: 0;">
-                  <mat-icon class="text-white">{{ row.isStopped ? 'play_arrow' : 'pause' }}</mat-icon>
+                  <mat-icon class="text-white">
+                    {{ row.isStopped ? 'play_arrow' : 'pause' }}
+                  </mat-icon>
                 </button>
-                <!-- Delete Button -->
                 <button 
                   *ngIf="row.isStopped" 
                   class="btn btn-danger btn-sm rounded-circle ms-2 d-flex justify-content-center align-items-center" 
@@ -94,6 +145,5 @@
         </tbody>
       </table>
     </div>
-    
   </div>
 </div>

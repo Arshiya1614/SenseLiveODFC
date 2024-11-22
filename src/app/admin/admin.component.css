@@ -1,43 +1,46 @@
-p{
-    font-size:18px;
-    line-height:30px;
+input.form-control {
+  min-width: 150px; 
+  max-width: 200px; 
 }
-/* Hide scrollbar for webkit browsers */
-.table-responsive::-webkit-scrollbar {
-    display: none;
-  }
-  .table-responsive {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer and Edge */
-  }
-  
-  /* Optional: Prevent horizontal overflow in the container */
-  .container-fluid {
-    overflow-x: hidden;
-  }
-  /* Style for the dropdown to match the background */
-.form-select {
-    border: none;
-    background-color: transparent;
-    color: inherit; /* Match the text color with the surrounding content */
-    font-size: inherit; /* Ensure the font size matches the surrounding text */
-    box-shadow: none; /* Remove any box shadow */
-    outline: none; 
-    padding: 1;
-    cursor: pointer;
-  }
-  
-  .form-select:focus {
-    outline: none; /* Prevent any focus outline from showing */
-    box-shadow: none; /* Ensure no focus shadow appears */
-  }
-  input{
-    box-shadow: none !important; /* Remove shadow */
-    border: 1px solid #ced4da;   /* Optional: Consistent border */
-    outline: none;
-  }
-  @media print {
-    .d-print-none {
-      display: none;
-    }
-  }
+
+.table-responsive {
+  overflow-x: auto; 
+}
+
+.card-header {
+  position: sticky; 
+  top: 0;
+  background-color: white; 
+  z-index: 10; 
+}
+
+.text-nowrap {
+  white-space: nowrap; 
+}
+
+.add-btn{
+  border: none;
+  background: none;
+}
+.form-select{
+  border: none;
+  background-color: transparent;
+  color: inherit; 
+  font-size: inherit; 
+  box-shadow: none; 
+  outline: none; 
+  padding: 1;
+  cursor: pointer;
+
+}
+
+.form-select:focus {
+  outline: none; 
+  box-shadow:none;
+}
+
+.form-control:focus{
+  outline: none; 
+  box-shadow:none;
+}
+

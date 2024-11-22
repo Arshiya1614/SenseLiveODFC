@@ -17,7 +17,10 @@ export class AdminComponent {
     'Gauge 2',
     'Gauge 3'
   ];
-
+  remarkOptions : string[] = [
+    'satisfied',
+    'Not satisfied'
+  ]
   gaugeDataMap: { [key: string]: { characteristic: string; ofdcGaugeNo: string } } = {
     'Gauge 1': { characteristic: 'Characteristic 1', ofdcGaugeNo: 'OFDC001' },
     'Gauge 2': { characteristic: 'Characteristic 2', ofdcGaugeNo: 'OFDC002' },
