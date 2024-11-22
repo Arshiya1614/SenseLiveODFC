@@ -1,5 +1,5 @@
-<div class="container-fluid p-5" style="overflow: hidden;">
-  <div class="card border-none w-100" style="max-height: 100%; overflow: hidden;">
+<div class="container-fluid p-5">
+  <div class="card border-none w-100 ">
     <div class="card-header border-bottom border-danger text-center p-2">
       <h2 class="text-warning textfw-bold">
         <b>EDIT DIMENSION REPORT OF :</b> {{ reportData.title }}
@@ -18,7 +18,9 @@
     <div class="d-flex justify-content-end p-2">
       <button class="btn btn-success rounded-circle me-2" (click)="addRow()">+</button>
     </div>
-    <div class="table-responsive p-2" style="max-height:500px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
+
+    <!-- Table for Data -->
+    <div class="table-responsive p-2" style="max-height: 500px; overflow-y: auto;">
       <table class="table table-borderless">
         <thead>
           <tr>
@@ -36,28 +38,24 @@
         </thead>
         <tbody>
           <tr *ngFor="let row of reportData.characteristics; let i = index">
-            <td><input type="text" class="form-control " [(ngModel)]="row.srNo" [readonly]="true"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.timestamp"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.refNo"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
-            <td>
-              <div>
-                <select 
-                  class="form-control input-medium" 
-                  [(ngModel)]="row.gauge" 
-                  (change)="onGaugeChange(row)">
-                  <option *ngFor="let gauge of gaugeOptions" [value]="gauge">
-                    {{ gauge }}
-                  </option>
-                </select>
-              </div>
+            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.srNo" [readonly]="true"></td>
+            <td class="col-2"><input type="text" class="form-control" [(ngModel)]="row.timestamp"></td>
+            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.refNo"></td>
+            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.ofdcGaugeNo" [readonly]="true"></td>
+            <td class="col-1">
+              <select class="form-control" [(ngModel)]="row.gauge" (change)="onGaugeChange(row)">
+                <option *ngFor="let gauge of gaugeOptions" [value]="gauge">
+                  {{ gauge }}
+                </option>
+              </select>
             </td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.characteristic" [readonly]="true"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.actualNo"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.remark"></td>
-            <td><input type="text" class="form-control " [(ngModel)]="row.otherRemark"></td>
-            <td>
+            <td class="col-2"><input type="text" class="form-control" [(ngModel)]="row.characteristic" [readonly]="true"></td>
+            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.actualNo"></td>
+            <td class="col-1"><input type="text" class="form-control" [(ngModel)]="row.remark"></td>
+            <td class="col-2"><input type="text" class="form-control" [(ngModel)]="row.otherRemark"></td>
+            <td class="d-print-none ">
               <div class="d-flex justify-content-center">
+                <!-- Start/Stop Button -->
                 <button 
                   class="btn btn-sm rounded-circle d-flex justify-content-center align-items-center" 
                   [ngClass]="row.isStopped ? 'btn-primary' : 'btn-warning'" 
@@ -65,11 +63,12 @@
                   style="width: 30px; height: 30px; padding: 0;">
                   <mat-icon class="text-white">{{ row.isStopped ? 'play_arrow' : 'pause' }}</mat-icon>
                 </button>
+                <!-- Delete Button -->
                 <button 
                   *ngIf="row.isStopped" 
                   class="btn btn-danger btn-sm rounded-circle ms-2 d-flex justify-content-center align-items-center" 
                   (click)="deleteRow(i)" 
-                  [disabled]="i === 0 && row.isDefault" 
+                  [disabled]="i === 0" 
                   style="width: 30px; height: 30px; padding: 0;">
                   <mat-icon class="text-white">delete</mat-icon>
                 </button>
