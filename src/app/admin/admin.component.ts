@@ -12,7 +12,17 @@ export class AdminComponent {
     'BASE,PLATE, FOR FUZE PERCN.DA NO 162 MK8(M-2)',
     'COVER,FOR FUZE PERCN.DA NO 162 MK8(M-2)'
   ];
+  gaugeOptions: string[] = [
+    'Gauge 1',
+    'Gauge 2',
+    'Gauge 3'
+  ];
 
+  gaugeDataMap: { [key: string]: { characteristic: string; ofdcGaugeNo: string } } = {
+    'Gauge 1': { characteristic: 'Characteristic 1', ofdcGaugeNo: 'OFDC001' },
+    'Gauge 2': { characteristic: 'Characteristic 2', ofdcGaugeNo: 'OFDC002' },
+    'Gauge 3': { characteristic: 'Characteristic 3', ofdcGaugeNo: 'OFDC003' }
+  };
   // Selected component (default to the first one)
   selectedComponent: string = this.components[0];
 
@@ -25,9 +35,9 @@ export class AdminComponent {
         srNo: 1,
         timestamp: new Date().toISOString(),
         refNo: 'REF1',
-        characteristic: 'Default Characteristic',
-        gauge: 'Default Gauge',
-        ofdcGaugeNo: 'Default OFDC',
+        characteristic: 'Characteristic',
+        gauge: 'Guage',
+        ofdcGaugeNo: 'OFDC no',
         actualNo: 0,
         remark: 'Default Remark',
         otherRemark: 'Default Other Remark',
@@ -41,7 +51,17 @@ export class AdminComponent {
    onComponentChange() {
     this.updateReportData(this.selectedComponent);
   }
-
+  onGaugeChange(row: any) {
+    // Fetch characteristic and OFDC Gauge No from the mapping based on selected gauge
+    const gaugeData = this.gaugeDataMap[row.gauge];
+    if (gaugeData) {
+      row.characteristic = gaugeData.characteristic;
+      row.ofdcGaugeNo = gaugeData.ofdcGaugeNo;
+    } else {
+      row.characteristic = 'No characteristic available';
+      row.ofdcGaugeNo = 'No OFDC Gauge No available';
+    }
+  }
   // Update report data dynamically based on the selected component
   updateReportData(component: string) {
     this.reportData = {
@@ -53,9 +73,9 @@ export class AdminComponent {
           srNo: 1,
           timestamp: new Date().toISOString(),
           refNo: 'REF1',
-          characteristic: 'Default Characteristic',
-          gauge: 'Default Gauge',
-          ofdcGaugeNo: 'Default OFDC',
+          characteristic: '',
+          gauge: '',
+          ofdcGaugeNo: '',
           actualNo: 0,
           remark: 'Default Remark',
           otherRemark: 'Default Other Remark',
