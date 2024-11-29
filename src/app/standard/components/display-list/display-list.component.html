@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row pt-4 mb-4">
+        <div class="card card-main">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-11 d-flex justify-content-center align-items-center">
+                        <div class="title">All Generated Reports</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <button mat-icon-button color="primary" (click)="redirectToFormFill()">
+                            <mat-icon>arrow_left</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="logout()">
+                            <mat-icon>logout</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <div class="table-container" style="overflow: auto; max-height: 60vh; border-radius: 5px;">
+                            <table mat-table [dataSource]="cards">
+                                <ng-container matColumnDef="serial">
+                                    <th mat-header-cell *matHeaderCellDef> Sr No </th>
+                                    <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="endStore">
+                                    <th mat-header-cell *matHeaderCellDef> End Store </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element.end_store_name }} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="component">
+                                    <th mat-header-cell *matHeaderCellDef> Component </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element.component_name }} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="sin">
+                                    <th mat-header-cell *matHeaderCellDef> SIN No </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element.sin_no }} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="user">
+                                    <th mat-header-cell *matHeaderCellDef> Submitted By </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element.user_name }} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="date">
+                                    <th mat-header-cell *matHeaderCellDef> Created At </th>
+                                    <td mat-cell *matCellDef="let element">{{ formatDate(element.created_at) }}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef> View </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <mat-icon class="mat-18" color="primary"
+                                            class="view-button" (click)="redirectToView(element.report_id)">description</mat-icon>
+                                    </td>
+                                </ng-container>
+
+                                <tr class="table-header" mat-header-row
+                                    *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                <tr class="table-body" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

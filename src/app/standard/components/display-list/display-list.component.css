@@ -1,0 +1,23 @@
+.card-main {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.title{
+    font-size: 1.2rem;
+    font-weight: 550;
+    color: #ee660c;
+}
+
+.table-header{
+    background: linear-gradient(180deg, #f19c62 0%, #ee660c 100%);
+    color: whitesmoke;
+    height: 45px;
+    font-size: 0.9rem;
+    font-weight: 550;
+}
+
+.table-body{
+    height: 40px;
+    font-size: 0.7rem;
+    font-weight: 550;
+}

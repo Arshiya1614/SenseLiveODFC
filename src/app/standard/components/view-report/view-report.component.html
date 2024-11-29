@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="row pt-4 mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <button mat-icon-button color="primary">
+                <mat-icon>arrow_left</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="generatePDF()">
+                <mat-icon>print</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+                <mat-icon>logout</mat-icon>
+            </button>
+        </div>
+        <div class="col-12">
+            <div class="card card-main" id="card-main">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-3 d-flex justify-content-center align-items-center">
+                            <img src="../../../../assets/logo1.png" alt="Logo-2" class="img-fluid">
+                        </div>
+                        <div class="col-6">
+                            <div class="title">
+                                आयुध निर्माणी दम दम / Ordnance Factory Dum Dum
+                                <br>
+                                यंत्र इंडिया लिमिटेड की एक इकाई / A unit of Yantra India Limited
+                                <br>
+                                भारत सरकार का एक उद्यम / A Government of India Enterprise
+                                <br>
+                                रक्षा मंत्रालय / Ministry of Defence
+                                <br>
+                                जशोर रोड, कोलकाता / Jessore Road, Kolkata - 700028
+                                <br>
+                                फ़ोन / ई-मेल / Ph: 033-2569 4001 / E-Mail : ofdc@ord.gov.in
+                            </div>
+                        </div>
+                        <div class="col-3 d-flex justify-content-center align-items-center">
+                            <img src="../../../../assets/logo2.png" alt="Logo-2" class="img-fluid">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row pt-2 mb-3">
+                        <div class="col-12">
+                            <div class="title-2">DIMENSION TEST REPORT</div>
+                        </div>
+                    </div>
+                    <div class="row text d-flex align-items-center mb-2">
+                        <div class="col-3">End Store:</div>
+                        <div class="col-7">{{ data.end_store_name }}</div>
+                    </div>
+                    <div class="row text d-flex align-items-center mb-2">
+                        <div class="col-3 mb-2">Component:</div>
+                        <div class="col-9 mb-2">{{ data.component_name }} </div>
+                    </div>
+                    <div class="row text d-flex align-items-center mb-2">
+                        <div class="col-3 mb-2">SIN No:</div>
+                        <div class="col-9 mb-2">{{ data.sin_no }}</div>
+                    </div>
+                    <div class="row text d-flex align-items-center mb-2">
+                        <div class="col-3 mb-2">LOT No:</div>
+                        <div class="col-9 mb-2">{{ data.lot_no }}</div>
+                    </div>
+                    <div class="row text d-flex align-items-center mb-2">
+                        <div class="col-3 mb-2">Heat Batch No:</div>
+                        <div class="col-9 mb-2">{{ data.heat_batch_no }}</div>
+                    </div>
+                    <div class="row text d-flex align-items-center mb-2">
+                        <div class="col-3 mb-2">Offered Quantity:</div>
+                        <div class="col-3 mb-2">{{ data.offered_quantity }} [ Nos. ]</div>
+                        <div class="col-3 text-end mb-2">Sample Quantity:</div>
+                        <div class="col-3 text-end mb-2">{{ data.sample_quantity }} [Nos. ]</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <div class="table-container" style="overflow: auto; max-height: 60vh; border-radius: 5px;">
+                                <table mat-table [dataSource]="cards">
+                                    <ng-container matColumnDef="serial">
+                                        <th mat-header-cell *matHeaderCellDef> Sr No </th>
+                                        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="time">
+                                        <th mat-header-cell *matHeaderCellDef> Date </th>
+                                        <td mat-cell *matCellDef="let element"> {{ formatDate(element.timestamp) || '-' }} </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="gauge">
+                                        <th mat-header-cell *matHeaderCellDef> Guage </th>
+                                        <td mat-cell *matCellDef="let element"> {{ element.gauge || '-' }} </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="characteristic">
+                                        <th mat-header-cell *matHeaderCellDef> Characteristic </th>
+                                        <td mat-cell *matCellDef="let element"> {{ element.characteristic || '-' }} </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="ofdcGaugeNo">
+                                        <th mat-header-cell *matHeaderCellDef> ofdc Gauge No</th>
+                                        <td mat-cell *matCellDef="let element"> {{ element.ofdcGaugeNo || '-' }} </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="actualNo">
+                                        <th mat-header-cell *matHeaderCellDef> Actual No </th>
+                                        <td mat-cell *matCellDef="let element">{{ element.actualNo || '-' }} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="remark">
+                                        <th mat-header-cell *matHeaderCellDef> Remark </th>
+                                        <td mat-cell *matCellDef="let element">{{ element.remark || '-' }} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="otherRemark">
+                                        <th mat-header-cell *matHeaderCellDef> Other Remark </th>
+                                        <td mat-cell *matCellDef="let element">{{ element.otherRemark || '-' }} </td>
+                                    </ng-container>
+    
+                                    <tr class="table-header" mat-header-row
+                                        *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                    <tr class="table-body" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

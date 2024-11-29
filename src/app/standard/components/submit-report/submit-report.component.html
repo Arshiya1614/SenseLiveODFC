@@ -1,0 +1,83 @@
+<div class="container dialog" [formGroup]="saveForm">
+    <div class="row pt-2 mb-4" [@fadeInOutPassword]>
+      <div class="col-12 mb-3">
+        <div class="dialog-title">
+          Fill the details to proceed?
+        </div>
+      </div>
+  
+      <!-- SIN No -->
+      <div class="col-12 mb-3">
+        <div class="custom-form-input">
+          <label class="label">SIN No :</label>
+          <input type="text" formControlName="sinNo" placeholder="N1232444" />
+          <div class="error-msg" *ngIf="saveForm.get('sinNo')?.invalid && (saveForm.get('sinNo')?.dirty || saveForm.get('sinNo')?.touched)">
+            {{ getErrorMessage('sinNo') }}
+          </div>
+        </div>
+      </div>
+  
+      <!-- Lot No -->
+      <div class="col-12 mb-3">
+        <div class="custom-form-input">
+          <label class="label">Lot No :</label>
+          <input type="text" formControlName="lotNo" placeholder="787A" />
+          <div class="error-msg" *ngIf="saveForm.get('lotNo')?.invalid && (saveForm.get('lotNo')?.dirty || saveForm.get('lotNo')?.touched)">
+            {{ getErrorMessage('lotNo') }}
+          </div>
+        </div>
+      </div>
+  
+      <!-- Heat Batch No -->
+      <div class="col-12 mb-3">
+        <div class="custom-form-input">
+          <label class="label">Heat Batch No :</label>
+          <input type="text" formControlName="heatBatchNo" placeholder="HB123" />
+          <div class="error-msg" *ngIf="saveForm.get('heatBatchNo')?.invalid && (saveForm.get('heatBatchNo')?.dirty || saveForm.get('heatBatchNo')?.touched)">
+            {{ getErrorMessage('heatBatchNo') }}
+          </div>
+        </div>
+      </div>
+  
+      <!-- Offered Quantity -->
+      <div class="col-12 mb-3">
+        <div class="custom-form-input">
+          <label class="label">Offered Quantity :</label>
+          <input type="text" formControlName="offeredQuantity" placeholder="1000" />
+          <div class="error-msg" *ngIf="saveForm.get('offeredQuantity')?.invalid && (saveForm.get('offeredQuantity')?.dirty || saveForm.get('offeredQuantity')?.touched)">
+            {{ getErrorMessage('offeredQuantity') }}
+          </div>
+        </div>
+      </div>
+  
+      <!-- Sample Quantity -->
+      <div class="col-12 mb-3">
+        <div class="custom-form-input">
+          <label class="label">Sample Quantity :</label>
+          <input type="text" formControlName="sampleQuantity" placeholder="50" />
+          <div class="error-msg" *ngIf="saveForm.get('sampleQuantity')?.invalid && (saveForm.get('sampleQuantity')?.dirty || saveForm.get('sampleQuantity')?.touched)">
+            {{ getErrorMessage('sampleQuantity') }}
+          </div>
+        </div>
+      </div>
+  
+      <!-- Action buttons -->
+      <div class="col-12">
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <button mat-raised-button class="dialog-button" (click)="onCancel()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button mat-raised-button class="dialog-button success-button" (click)="onSaveClick()" [disabled]="!saveForm.valid">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

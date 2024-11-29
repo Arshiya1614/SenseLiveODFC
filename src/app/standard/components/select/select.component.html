@@ -1,0 +1,15 @@
+<div class="custom-dropdown" (click)="toggleDropdown()">
+    <div class="custom-dropdown-content">
+      <div class="custom-dropdown-selected">
+        {{ selectedOption ? selectedOption[displayField] || 'Select an option' : 'Select an option' }}
+      </div>
+    </div>
+    <div [@openClose]="dropdownOpen ? 'open' : 'closed'" class="custom-dropdown-options">
+      <div *ngFor="let option of options"
+           (click)="selectOption(option); $event.stopPropagation()"
+           class="custom-dropdown-option"
+           [ngClass]="{'-closed': isDropdownClosed()}">
+        {{ option[displayField] }}
+      </div>
+    </div>
+  </div>

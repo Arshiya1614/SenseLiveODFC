@@ -1,6 +1,10 @@
+.card-main{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 input.form-control {
-  min-width: 150px; 
-  max-width: 200px; 
+  min-width: 50px;
+  max-width: 100%;
 }
 
 .table-responsive {
@@ -42,5 +46,49 @@ input.form-control {
 .form-control:focus{
   outline: none; 
   box-shadow:none;
+}
+
+.title{
+  font-size: 1.2rem;
+  font-weight: 550;
+  color: #ee660c;
+}
+
+.sub-title{
+  font-size: 1rem;
+  font-weight: 550;
+  color: #302d2c;
+}
+
+.sub-title-color{
+  font-size: 1rem;
+  font-weight: 550;
+  color: #ee660c;
+}
+
+.custom-button {
+  padding: 4px; /* Reduce padding to make the button smaller */
+  font-size: 18px; /* Adjust the icon size */
+  width: 32px; /* Control the width */
+  height: 32px; /* Control the height */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-button mat-icon {
+  font-size: 25px; /* Adjust the icon size specifically */
+}
+
+.submit-button {
+  width: 100%;
+  background: linear-gradient(to right, whitesmoke, #ee660c);
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
 }
 

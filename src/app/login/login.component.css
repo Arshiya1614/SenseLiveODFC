@@ -114,13 +114,13 @@ input {
   width: 100%;
   border-bottom: 1px solid #5d5858a2;
   background-color: transparent;
-  color: white;
+  color: #000;
 }
 
 input:focus {
   border-bottom: 2px solid #ee660c; 
   background-color: transparent; 
-  color: white;
+  color: #000;
 }
 
 input::placeholder {

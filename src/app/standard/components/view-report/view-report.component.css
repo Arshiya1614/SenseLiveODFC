@@ -1,0 +1,43 @@
+.card-main {
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 530;
+    text-align: center;
+    color: rgb(48, 45, 45);
+    line-height: 1.6;
+}
+
+.img-fluid{
+    height: 150px;
+    width: auto;
+}
+
+.title-2{
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #000000;
+}
+
+.text{
+    font-size: 1rem;
+    color: #000000;
+}
+
+.table-header{
+    background: linear-gradient(180deg, #f19c62 0%, #ee660c 100%);
+    color: whitesmoke;
+    height: 45px;
+    font-size: 0.9rem;
+    font-weight: 550;
+}
+
+.table-body{
+    height: 40px;
+    font-size: 0.85rem;
+    font-weight: 550;
+}

@@ -1,0 +1,49 @@
+.dialog {
+    max-width: 500px;
+    border: 1px solid  #ee660c;
+    border-radius: 4px;
+    padding: 20px; /* Adjust padding as needed */
+}
+
+.dialog-title {
+    font-size: 1.2rem;
+    font-weight: 550;
+    text-align: center;
+    color: grey;
+}
+
+.dialog-button {
+    width: 100%;
+}
+
+.error-msg {
+    font-size: 0.7rem;
+    font-weight: 550;
+    color: red;
+}
+
+.normal-msg {
+    font-size: 0.7rem;
+    font-weight: 550;
+    color: black;
+}
+
+.sign{
+    font-size: 0.8rem;
+    font-weight: 550;
+    color: black;
+}
+
+.sign-error{
+    color: #bf2b1b;
+}
+
+.success-button {
+    background-color: #ee660c !important;
+    color: white !important;
+}
+
+.label{
+    font-size: 0.8rem;
+    font-weight: 550;
+}
