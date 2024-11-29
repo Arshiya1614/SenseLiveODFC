@@ -1,13 +1,13 @@
 <div class="container">
     <div class="row pt-4 mb-4">
         <div class="col-12 d-flex justify-content-between align-items-center">
-            <button mat-icon-button color="primary">
+            <button mat-icon-button color="primary" (click)="redirectToBack()">
                 <mat-icon>arrow_left</mat-icon>
             </button>
             <button mat-icon-button color="primary" (click)="generatePDF()">
                 <mat-icon>print</mat-icon>
             </button>
-            <button mat-icon-button color="warn">
+            <button mat-icon-button color="warn" (click)="logout()">
                 <mat-icon>logout</mat-icon>
             </button>
         </div>

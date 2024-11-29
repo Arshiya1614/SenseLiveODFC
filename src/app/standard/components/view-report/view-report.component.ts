@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { jsPDF } from 'jspdf';
+import { AuthService } from 'src/app/login/auth/auth.service';
 
 @Component({
   selector: 'app-view-report',
@@ -23,7 +24,13 @@ export class ViewReportComponent implements OnInit {
     })
   );
 
-  constructor(private route: ActivatedRoute, private service: DataService, private datePipe: DatePipe) { }
+  constructor(
+    private route: ActivatedRoute,
+    private service: DataService,
+    private datePipe: DatePipe,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.reportId$.pipe(
@@ -99,5 +106,11 @@ export class ViewReportComponent implements OnInit {
   //   }
   // }
 
+  redirectToBack(): void {
+    this.router.navigate(['/display']);
+  }
 
+  logout() {
+    this.authService.logout();
+  }
 }
