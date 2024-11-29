@@ -17,6 +17,8 @@ import { SubmitReportComponent } from './standard/components/submit-report/submi
 import { DisplayListComponent } from './standard/components/display-list/display-list.component';
 import { DatePipe } from '@angular/common';
 import { ViewReportComponent } from './standard/components/view-report/view-report.component';
+import { RouterModule } from '@angular/router';
+
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: 'dashboard.senselive.in',
@@ -46,6 +48,7 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
     ReactiveFormsModule,
     FormsModule ,
     HttpClientModule ,
+    RouterModule,
     MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
   ],
   providers: [DatePipe],

@@ -41,3 +41,9 @@
     font-size: 0.85rem;
     font-weight: 550;
 }
+.header-img img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; 
+  }
+  
