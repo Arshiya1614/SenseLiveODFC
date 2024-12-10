@@ -42,7 +42,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   border-bottom-color: #ee660c;
   border-bottom-width: 1px;
 }
-
 @media print {
   .title {
       font-family: 'Noto Sans Devanagari', sans-serif;

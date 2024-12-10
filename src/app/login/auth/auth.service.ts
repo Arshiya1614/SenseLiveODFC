@@ -4,9 +4,6 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -30,10 +27,12 @@ export class AuthService {
     this.cookieService.set('_userType', userType, { path: '/' });
   }
 
+  // getUserType(): string | null {
+  //   return this.cookieService.get('_userType');
+  // }
   getUserType(): string | null {
-    return this.cookieService.get('_userType');
+    return 'admin'; // Change to 'standard' to test the other role
   }
-
   setToken(token: string): void {
     this.token = token;
     this.cookieService.set('_token', token, { path: '/' });

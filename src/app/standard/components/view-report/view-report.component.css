@@ -46,4 +46,14 @@
     height: auto;
     object-fit: contain; 
   }
+  .hide-on-screen {
+    display: none !important;
+  }
+  .signature-img {
+    width: 100px;
+    height: auto;
+    display: block;
+  }
+  
+  
   
