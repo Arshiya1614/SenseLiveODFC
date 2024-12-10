@@ -27,12 +27,12 @@ export class AuthService {
     this.cookieService.set('_userType', userType, { path: '/' });
   }
 
-  // getUserType(): string | null {
-  //   return this.cookieService.get('_userType');
-  // }
   getUserType(): string | null {
-    return 'admin'; // Change to 'standard' to test the other role
+    return this.cookieService.get('_userType');
   }
+  // getUserType(): string | null {
+  //   return 'standard'; // Change to 'standard' to test the other role
+  // }
   setToken(token: string): void {
     this.token = token;
     this.cookieService.set('_token', token, { path: '/' });

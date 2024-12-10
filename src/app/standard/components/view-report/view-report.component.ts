@@ -115,7 +115,13 @@ export class ViewReportComponent implements OnInit {
 
     // Clone the content to modify for PDF
     const clonedContent = content.cloneNode(true) as HTMLElement;
-
+    const uploadButtons = clonedContent.querySelectorAll('mat-icon');
+  uploadButtons.forEach((button) => {
+    const parentElement = button.parentElement;
+    if (parentElement) {
+      parentElement.removeChild(button); // Remove the button from its parent element
+    }
+  });
     // Add SIN No row dynamically to the cloned content
     const sinNoRow = document.createElement('div');
     sinNoRow.classList.add('row', 'text', 'd-flex', 'align-items-center');

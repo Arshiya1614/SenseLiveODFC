@@ -49,11 +49,29 @@
   .hide-on-screen {
     display: none !important;
   }
-  .signature-img {
-    width: 100px;
-    height: auto;
-    display: block;
+  .upload-btn {
+    font-size: 24px;
+    cursor: pointer;
   }
   
+  .signature-img {
+    max-width: 150px;
+    max-height: 50px;
+    object-fit: contain;
+  }
   
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  select {
+    width: 100%;
+    padding: 5px;
+  }
   
