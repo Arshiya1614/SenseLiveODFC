@@ -52,3 +52,4 @@ export class DisplayListComponent implements OnInit {
     this.authService.logout();
   }
 }
+ 

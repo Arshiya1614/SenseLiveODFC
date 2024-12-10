@@ -31,7 +31,7 @@ export class AuthService {
     return this.cookieService.get('_userType');
   }
   // getUserType(): string | null {
-  //   return 'standard'; // Change to 'standard' to test the other role
+  //   return 'admin'; // Change to 'standard' to test the other role
   // }
   setToken(token: string): void {
     this.token = token;

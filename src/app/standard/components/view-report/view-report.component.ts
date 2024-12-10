@@ -25,9 +25,8 @@ export class ViewReportComponent implements OnInit {
   );
   userRole: string | null = null; // User role dynamically fetched from AuthService
   personnelList: Array<{ name: string; designation: string; signature: string }> = [];
-  checkedBy: { name: string; signature: string | null } = { name: '', signature: null };
-  verifiedBy: { name: string; signature: string | null } = { name: '', signature: null };
-
+  checkedBy: any = {};
+  verifiedBy: any = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -82,17 +81,17 @@ export class ViewReportComponent implements OnInit {
       {
         name: 'John Doe',
         designation: 'Quality Inspector',
-        signature: ''
+        signature: '/assets/sign.png'
       },
       {
         name: 'Jane Smith',
         designation: 'Supervisor',
-        signature: ''
+        signature: '/assets/R.png'
       },
       {
         name: 'Robert Brown',
         designation: 'Engineer',
-         signature: ''
+        signature: '/assets/OIP.jpg'
       }
     ];
   }
@@ -115,13 +114,13 @@ export class ViewReportComponent implements OnInit {
 
     // Clone the content to modify for PDF
     const clonedContent = content.cloneNode(true) as HTMLElement;
-    const uploadButtons = clonedContent.querySelectorAll('mat-icon');
-  uploadButtons.forEach((button) => {
-    const parentElement = button.parentElement;
-    if (parentElement) {
-      parentElement.removeChild(button); // Remove the button from its parent element
-    }
-  });
+  //   const uploadButtons = clonedContent.querySelectorAll('mat-icon');
+  // uploadButtons.forEach((button) => {
+  //   const parentElement = button.parentElement;
+  //   if (parentElement) {
+  //     parentElement.removeChild(button); // Remove the button from its parent element
+  //   }
+  // });
     // Add SIN No row dynamically to the cloned content
     const sinNoRow = document.createElement('div');
     sinNoRow.classList.add('row', 'text', 'd-flex', 'align-items-center');
@@ -150,17 +149,18 @@ export class ViewReportComponent implements OnInit {
       },
     });
   }
-  onSignatureUpload(event: any, type: 'checkedBy' | 'verifiedBy'): void {
-    const file = event.target.files[0];
+  onPersonSelected(type: 'checkedBy' | 'verifiedBy', selectedPerson: any): void {
+    this[type] = { ...selectedPerson };
+  }
+  isPrintButtonEnabled(): boolean {
+    return !!(this.checkedBy?.signature && this.verifiedBy?.signature);
+  }
+  onSignatureUpload(event: Event, type: 'checkedBy' | 'verifiedBy'): void {
+    const file = (event.target as HTMLInputElement)?.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const imageUrl = e.target.result;
-        if (type === 'checkedBy') {
-          this.checkedBy.signature = imageUrl;
-        } else if (type === 'verifiedBy') {
-          this.verifiedBy.signature = imageUrl;
-        }
+      reader.onload = () => {
+        this[type].signature = reader.result;
       };
       reader.readAsDataURL(file);
     }

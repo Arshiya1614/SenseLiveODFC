@@ -4,7 +4,7 @@
             <button mat-icon-button color="primary" (click)="redirectToBack()">
                 <mat-icon>arrow_left</mat-icon>
             </button>
-            <button mat-icon-button color="primary" (click)="generatePDF()">
+            <button mat-icon-button color="primary" (click)="generatePDF()"  [disabled]="!isPrintButtonEnabled()">
                 <mat-icon>print</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="logout()">
@@ -122,25 +122,40 @@
                     <div *ngIf="userRole === 'admin'" class="row text mt-4">
                         <!-- Checked By Section -->
                         <div class="col-6">
-                          <div class="form-group ">
+                          <div class="form-group">
                             <!-- Checked By Label -->
-                            <div class="mb-2">
-                              <label class="d-block"><strong>Checked By:</strong></label>
+                            <!-- <div class="mb-2">
+                                <label class="d-block"><strong>Checked By:</strong></label>
                             </div>
-                      
+                       -->
                             <!-- Signature Upload + Name/Designation Container -->
-                            <div class="d-flex flex-column align-items-start ">
-                              <!-- Signature Upload -->
-                              <div class="text-start mb-2 w-100">
-                                <input type="file" #fileInputChecked (change)="onSignatureUpload($event, 'checkedBy')" accept="image/*" class="d-none">
-                                <img *ngIf="checkedBy?.signature" [src]="checkedBy.signature" alt="Checked By Signature" class="signature-img mt-2">
+                            <div class="d-flex flex-column align-items-start">
+                              <!-- Signature Display -->
+                              <div class="text-center mb-2 w-50">
+                                <input
+                                  type="file"
+                                  #fileInputChecked
+                                  (change)="onSignatureUpload($event, 'checkedBy')"
+                                  accept="image/*"
+                                  class="d-none"
+                                />
+                                <img
+                                  *ngIf="checkedBy?.signature"
+                                  [src]="checkedBy.signature"
+                                  alt="Checked By Signature"
+                                  class="signature-img mt-2"
+                                />
                               </div>
                       
                               <!-- Name and Designation Dropdown -->
-                              <div class="d-flex align-items-center  w-100">
-                                <mat-icon (click)="fileInputChecked.click()" class="upload-btn">upload</mat-icon>
-                                <select [(ngModel)]="checkedBy" class="form-control border-0 px-0 bg-transparent w-50">
-                                  <option *ngFor="let person of personnelList" [value]="person">
+                              <div class="d-flex align-items-center w-100">
+                                <label class="d-block p-2"><strong>Checked By:</strong></label>
+                                <select
+                                  (ngModelChange)="onPersonSelected('checkedBy', $event)"
+                                  [(ngModel)]="checkedBy"
+                                  class="form-control shadow-none px-0 bg-transparent w-50"
+                                >
+                                  <option *ngFor="let person of personnelList" [ngValue]="person">
                                     {{ person.name }} ({{ person.designation }})
                                   </option>
                                 </select>
@@ -153,23 +168,38 @@
                         <div class="col-6">
                           <div class="form-group">
                             <!-- Verified By Label -->
-                            <div class="mb-2">
+                            <!-- <div class="mb-2">
                               <label class="d-block"><strong>Verified By:</strong></label>
-                            </div>
+                            </div> -->
                       
                             <!-- Signature Upload + Name/Designation Container -->
                             <div class="d-flex flex-column align-items-start">
-                              <!-- Signature Upload -->
-                              <div class="text-start mb-2 w-100">
-                                <input type="file" #fileInputVerified (change)="onSignatureUpload($event, 'verifiedBy')" accept="image/*" class="d-none">
-                                <img *ngIf="verifiedBy?.signature" [src]="verifiedBy.signature" alt="Verified By Signature" class="signature-img mt-2">
+                              <!-- Signature Display -->
+                              <div class="text-center mb-2 w-50">
+                                <input
+                                  type="file"
+                                  #fileInputVerified
+                                  (change)="onSignatureUpload($event, 'verifiedBy')"
+                                  accept="image/*"
+                                  class="d-none"
+                                />
+                                <img
+                                  *ngIf="verifiedBy?.signature"
+                                  [src]="verifiedBy.signature"
+                                  alt="Verified By Signature"
+                                  class="signature-img mt-2"
+                                />
                               </div>
                       
                               <!-- Name and Designation Dropdown -->
-                              <div class="d-flex align-items-center  w-100">
-                                <mat-icon (click)="fileInputVerified.click()" class="upload-btn ml-2">upload</mat-icon>
-                                <select [(ngModel)]="verifiedBy" class="form-control border-0 px-0 bg-transparent w-75">
-                                  <option *ngFor="let person of personnelList" [value]="person">
+                              <div class="d-flex align-items-center w-100">
+                                <label class="d-block p-2 "><strong>Verified By:</strong></label>
+                                <select
+                                  (ngModelChange)="onPersonSelected('verifiedBy', $event)"
+                                  [(ngModel)]="verifiedBy"
+                                  class="form-control  shadow-none px-0 bg-transparent w-50"
+                                >
+                                  <option *ngFor="let person of personnelList" [ngValue]="person">
                                     {{ person.name }} ({{ person.designation }})
                                   </option>
                                 </select>
@@ -178,7 +208,6 @@
                           </div>
                         </div>
                       </div>
-                      
                       
                 </div>
             </div>
