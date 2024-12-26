@@ -67,7 +67,7 @@
                     </select>
                   </td>
                   <td><input type="text" class="form-control" [(ngModel)]="row.ofdcGaugeNo" readonly /></td>
-                  <td><input type="text" class="form-control" [(ngModel)]="row.actualNo" readonly /></td>
+                  <td><input type="text" class="form-control" [(ngModel)]="row.actualNo" /></td>
                   <td>
                     <select class="form-control" [(ngModel)]="row.remark">
                       <option value="Satisfactory">Satisfactory</option>
@@ -76,9 +76,9 @@
                   </td>
                   <td><input type="text" class="form-control" [(ngModel)]="row.otherRemark" /></td>
                   <td class="d-flex align-items-center">
-                    <button (click)="toggleCounter(i)" mat-icon-button class="custom-button" color="primary">
+                    <!-- <button (click)="toggleCounter(i)" mat-icon-button class="custom-button" color="primary">
                       <mat-icon>{{ row.isStopped ? 'play_arrow' : 'pause' }}</mat-icon>
-                    </button>
+                    </button> -->
                     <button (click)="deleteRow(i)" mat-icon-button class="custom-button" color="warn">
                       <mat-icon>delete</mat-icon>
                     </button>

@@ -88,11 +88,74 @@ export class StandardComponent implements OnInit, OnDestroy {
       row.availableCharacteristics = gaugeData.characteristics;
       row.characteristic = gaugeData.characteristics.length > 0 ? gaugeData.characteristics[0].value : '';
       row.ofdcGaugeNo = gaugeData.ofdcGaugeNo;
+      this.startFetchingData(row);
     } else {
       row.availableCharacteristics = [];
       row.characteristic = '';
       row.ofdcGaugeNo = '';
     }
+  }
+
+  startFetchingData(row: any) {
+    if (row.subscription) {
+      row.subscription.unsubscribe();
+    }
+  
+    if (!row.gauge || !row.characteristic) {
+      this.snackBar.open('Please select both Gauge and Characteristic.', 'Close', { duration: 3000 });
+      return;
+    }
+  
+    const gaugeData = this.gauges.find(g => g.value === row.gauge);
+    const characteristic = gaugeData?.characteristics.find((c: { value: any }) => c.value === row.characteristic);
+  
+    if (!characteristic) {
+      this.snackBar.open('No characteristic data found.', 'Close', { duration: 3000 });
+      return;
+    }
+  
+    const referValue = parseFloat(characteristic.refer_value);
+    const tolerance = parseFloat(characteristic.tolerence);
+    const maxValue = referValue + 2 * tolerance;
+    const minValue = referValue - 2 * tolerance;
+  
+    const topic = `gauge/${row.gauge}/${row.characteristic}`;
+    let lastValue = 0;
+  
+    row.subscription = this.mqttService.observe(topic).subscribe({
+      next: (message: IMqttMessage) => {
+        try {
+          const data = JSON.parse(message.payload.toString());
+          if (data.value !== undefined) {
+            const currentValue = parseFloat(data.value);
+  
+            if (currentValue >= minValue && currentValue <= maxValue) {
+              if (currentValue > lastValue) {
+                lastValue = currentValue; // Update the last value
+                row.actualNo = lastValue; // Assign the maximum value
+              } else {
+                // Freeze the row if the value decreases
+                row.isStopped = true;
+                if (row.subscription) {
+                  row.subscription.unsubscribe();
+                  row.subscription = null;
+                }
+                this.snackBar.open(`Row frozen. Max Value: ${lastValue}`, 'Close', { duration: 2000 });
+              }
+            } else {
+              // Value out of range; optionally handle this case
+            }
+          } else {
+            this.snackBar.open('Received message has no "value" field.', 'Close', { duration: 2000 });
+          }
+        } catch (e) {
+          this.snackBar.open('Error parsing MQTT message.', 'Close', { duration: 2000 });
+        }
+      },
+      error: (error) => {
+        this.snackBar.open('Error receiving MQTT data.', 'Close', { duration: 2000 });
+      }
+    });
   }
 
   addRow() {
@@ -112,43 +175,87 @@ export class StandardComponent implements OnInit, OnDestroy {
     this.reportData.characteristics.push(newRow);
   }
 
-  toggleCounter(index: number) {
-    const row = this.reportData.characteristics[index];
-
-    if (!row.gauge || !row.characteristic) {
-      this.snackBar.open(`Please select both Gauge and Characteristic for Row ${index + 1}`, 'Close', { duration: 3000 });
-      return;
-    }
-
-    if (row.isStopped) {
-      const topic = `gauge/${row.gauge}/${row.characteristic}`;
-
-      row.subscription = this.mqttService.observe(topic).subscribe({
-        next: (message: IMqttMessage) => {
-          try {
-            const data = JSON.parse(message.payload.toString());
-            if (data.value !== undefined) {
-              row.actualNo = data.value;
-            } else {
-              this.snackBar.open(`Row ${index + 1}: Received message has no 'value' field`, 'Close', { duration: 3000 });
-            }
-          } catch (e) {
-            this.snackBar.open(`Row ${index + 1}: Error parsing MQTT message`, 'Close', { duration: 3000 });
-          }
-        },
-        error: (error) => {
-          this.snackBar.open(`Row ${index + 1}: Error receiving MQTT data`, 'Close', { duration: 3000 });
-        }
-      });
-    } else {
-      if (row.subscription) {
-        row.subscription.unsubscribe();
-        row.subscription = null;
-      }
-    }
-
-    row.isStopped = !row.isStopped;
-  }
+ 
+  // toggleCounter(index: number) {
+  //   const row = this.reportData.characteristics[index];
+  
+  //   if (!row.gauge || !row.characteristic) {
+  //     this.snackBar.open(`Please select both Gauge and Characteristic for Row ${index + 1}`, 'Close', { duration: 3000 });
+  //     return;
+  //   }
+  
+  //   if (row.isStopped) {
+  //     const gaugeData = this.gauges.find(g => g.value === row.gauge);
+  //     const characteristic = gaugeData?.characteristics.find((c: { value: any; }) => c.value === row.characteristic);
+  
+  //     if (!characteristic) {
+  //       this.snackBar.open(`Row ${index + 1}: No characteristic data found`, 'Close', { duration: 3000 });
+  //       return;
+  //     }
+  
+  //     const referValue = parseFloat(characteristic.refer_value);
+  //     const tolerance = parseFloat(characteristic.tolerence);
+  //     const maxValue = referValue + 2 * tolerance;
+  //     const minValue = referValue - 2 * tolerance;
+  
+  //     const topic = `gauge/${row.gauge}/${row.characteristic}`;
+  //     let lastValue = 0; // Initialize the last value for comparison
+  
+  //     row.subscription = this.mqttService.observe(topic).subscribe({
+  //       next: (message: IMqttMessage) => {
+  //         try {
+  //           const data = JSON.parse(message.payload.toString());
+  //           if (data.value !== undefined) {
+  //             const currentValue = parseFloat(data.value);
+  
+  //             setTimeout(() => {
+  //               if (currentValue >= minValue && currentValue <= maxValue) {
+  //                 if (currentValue > lastValue) {
+  //                   lastValue = currentValue; // Update the last value
+  //                   row.actualNo = lastValue; // Assign the maximum value
+  //                 } else {
+  //                   // Freeze the row if the value decreases
+  //                   row.isStopped = true;
+  //                   if (row.subscription) {
+  //                     row.subscription.unsubscribe();
+  //                     row.subscription = null;
+  //                   }
+  //                   this.snackBar.open(
+  //                     `Row ${index + 1} is frozen. Max Value: ${lastValue}`,
+  //                     'Close',
+  //                     { duration: 2000 }
+  //                   );
+  //                 }
+  //               } else {
+  //                 // this.snackBar.open(
+  //                 //   `Row ${index + 1}: Value ${currentValue} is out of range (${minValue} - ${maxValue})`,
+  //                 //   'Close',
+  //                 //   { duration: 3000 }
+  //                 // );
+  //               }
+  //             }, 2000); // Delay of 2000ms
+  //           } else {
+  //             this.snackBar.open(`Row ${index + 1}: Received message has no 'value' field`, 'Close', { duration: 2000 });
+  //           }
+  //         } catch (e) {
+  //           this.snackBar.open(`Row ${index + 1}: Error parsing MQTT message`, 'Close', { duration: 2000 });
+  //         }
+  //       },
+  //       error: (error) => {
+  //         this.snackBar.open(`Row ${index + 1}: Error receiving MQTT data`, 'Close', { duration: 2000 });
+  //       }
+  //     });
+  //   } else {
+  //     if (row.subscription) {
+  //       row.subscription.unsubscribe();
+  //       row.subscription = null;
+  //     }
+  //   }
+  
+  //   row.isStopped = !row.isStopped;
+  // }
+  
+  
 
   deleteRow(index: number) {
     if (this.reportData.characteristics.length > 1) {
